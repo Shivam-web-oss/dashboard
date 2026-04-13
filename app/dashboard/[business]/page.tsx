@@ -1,7 +1,14 @@
 import { supabase } from "@/lib/supabase"
 import Link from "next/link"
 
-export default async function BusinessesPage() {
+interface Props {
+  params: {
+    business: string
+    dashboard: string
+  }
+}
+
+export default async function BusinessesPage({ params }: Props) {
   const { data: businesses, error } = await supabase
     .from("dashboards")
     .select("*")
@@ -18,8 +25,8 @@ export default async function BusinessesPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-10 px-4">
       <div className="max-w-5xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Businesses</h1>
-        <p className="text-gray-500 mb-8">Browse all registered businesses</p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">{params.business}</h1>
+        <p className="text-gray-500">Welcome to your dashboard</p>
 
         {businesses?.length === 0 ? (
           <div className="text-center py-20 text-gray-400">No businesses found.</div>
@@ -28,7 +35,7 @@ export default async function BusinessesPage() {
             {businesses?.map((biz) => (
               <Link
                 key={biz.id}
-                href={`/businesses/${biz.id}`}
+                href={`/dashboard/business/${biz.id}`}
                 className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-md transition-shadow group"
               >
                 <div className="flex items-center gap-4 mb-4">
