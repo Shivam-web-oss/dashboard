@@ -30,6 +30,7 @@ export default async function Page({
     <div>
       <h1>{business.name}</h1>
       <h2>{bot.name}</h2>
+      
     </div>
   )
 }
